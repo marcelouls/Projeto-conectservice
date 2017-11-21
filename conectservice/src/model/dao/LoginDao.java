@@ -16,7 +16,7 @@ import view.ViewCadastroUsuario;
  */
 public class LoginDao {
 
-    public static boolean checkLogin(String login, String senha) {
+    public static boolean checkLogin(String prestador, String senha) {
 
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -26,12 +26,20 @@ public class LoginDao {
 
         try {
 
-            stmt = con.prepareStatement("SELECT * FROM usuario WHERE login = ? and senha = ?");
-            stmt.setString(1, login);
+            stmt = con.prepareStatement("SELECT * FROM login WHERE prestado_servico = ? and senha = ?");
+            stmt.setString(1, prestador);
             stmt.setString(2, senha);
+            
             //vai fazer o check na tabela de usuario para entrar nas permissoes de usuario
+            /*
+                 mudei o pacote bean e dao, view cadastro usuario, view cadastro prestador.
+                 falta colocar no login e ver a melhor forma para usuario nao bular.
+                 falta tambem colocar no banco para aceitar so sim e não.
+            
+            
+            */ 
 
-            if (login.equals(login) && senha.equals(senha) && ("id"  == "usuario")) {
+            if (prestador.equals("não") && senha.equals(senha)) {
 
                 rs = stmt.executeQuery();
                 rs.next();
@@ -40,12 +48,7 @@ public class LoginDao {
 
             } else {
 
-                stmt = con.prepareStatement("SELECT * FROM prestador_servico WHERE login = ? and senha = ?");
-                stmt.setString(1, login);
-                stmt.setString(2, senha);
-                //vai fazer o check na tabela de prestador_Servico para entrar nas permissoes de prestador_Servico
-
-                if (login.equals(login) && senha.equals(senha)&& ("id"  == "prestador_servico")) {
+                if (prestador.equals("sim") && senha.equals(senha)) {
                     rs = stmt.executeQuery();
                     rs.next();
                     check = true;

@@ -1,12 +1,4 @@
-﻿Prestador de servico : 
-	login: maria
-	senha: 123		
-
-Usuario : 
-	login: otaviano
-	senha: 123			
-	
-	
+﻿
 ==========================================================================
 To usando um modelo de conexao que tem: 
 	update, delete, insert e select.

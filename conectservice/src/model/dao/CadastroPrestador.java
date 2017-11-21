@@ -30,13 +30,14 @@ public class CadastroPrestador {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO prestador_Servico  (nome, cnpj, login, senha, codsetor)VALUES(?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO prestador_servico  (nome, cnpj, login, senha, codsetor, prestado_servico) VALUES(?,?,?,?,?,?)");
             //insert into "nome da tabela"
             stmt.setString(1, use.getNome());
             stmt.setString(2, use.getCnpj());
             stmt.setString(3, use.getLoginprestador());
             stmt.setString(4, use.getSenhaprestador());
             stmt.setString(5, use.getCodsetor());
+            stmt.setString(6, use.getPrestador());
 
             stmt.executeUpdate();
 

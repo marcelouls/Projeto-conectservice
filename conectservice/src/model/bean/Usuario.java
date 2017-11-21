@@ -15,6 +15,15 @@ public class Usuario {
     private String cpf;
     private String login;
     private String senha;
+    private String prestador;
+
+    public String getPrestador() {
+        return prestador;
+    }
+
+    public void setPrestador(String prestador) {
+        this.prestador = prestador;
+    }
 
     public int getCodusuario() {
         return codusuario;

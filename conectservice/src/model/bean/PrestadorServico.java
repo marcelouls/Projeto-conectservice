@@ -16,6 +16,15 @@ public class PrestadorServico {
     private String loginprestador;
     private String senhaprestador;
     private String codsetor;
+    private String prestador;
+
+    public String getPrestador() {
+        return prestador;
+    }
+
+    public void setPrestador(String prestador) {
+        this.prestador = prestador;
+    }
 
     public int getCodprestador() {
         return codprestador;
