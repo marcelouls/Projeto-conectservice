@@ -1,0 +1,96 @@
+﻿Prestador de servico : 
+	login: maria
+	senha: 123		
+
+Usuario : 
+	login: otaviano
+	senha: 123			
+	
+	
+==========================================================================
+To usando um modelo de conexao que tem: 
+	update, delete, insert e select.
+	Conexao com o banco.
+	Telas no jframe.	
+	Vou enviar o modelo junto com o dump do banco e o projeto.
+==========================================================================
+O nosso projeto:
+	O banco foi alterado para melhorar a integracao com os logins e outras acoes
+	Temos dois usuarios para cada tabela que precisa de login, deixei o acesso acima
+	As classes para cada tabela com get e set estao prontas (usei atalhos)
+	As classes com insert(no banco) e outras acoes estao em andamento assim como, as telas
+	login ta passando sozinho, to vendo os check do login, fiz alteracoes
+	para abrir as telas depois do check mas não to conseguindo e se ficar passando não tem "segurança no acesso"
+	O codigo ta com pouco comentario por que to entendendo e modificando aos poucos, como falei to usando um
+	exemplo pronto
+	
+==========================================================================
+ Projeto:conectservice
+ Pacotes: 
+	connection - conexao com o banco
+	model.bean - classes com get e set
+	model.dao - classes com funcionalidades com o banco, insert e outros
+	view - Telas, JFRAME
+	
+	O quebra cabeça ta entre o pacote model.dao e view, view nem tanto.
+==========================================================================
+Divisão:
+
+		Telas mais trabalhosas, usuario e prestador. Essas vão ter acoes como update do cadastro, update de servico, delete, insert e select e outros.
+		Parte visual, colocar Logo, imagem de fundo e outras melhorias.
+
+
+
+
+
+
+
+
+========================================================================
+
+
+if(jTextField1.getText().equals("") || jPasswordField1.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Login ou Senha inválido.", "Oi. Simples assim!", JOptionPane.ERROR_MESSAGE);
+        }else{
+            Connection con = null;
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                con = DriverManager.getConnection("jdbc:mysql://10.20.194.170:3306/oi","usuario1","");
+                Statement stm = con.createStatement();
+                String SQL = "Select * from usuarios where login = '"+ jTextField1.getText()+"';";
+                ResultSet rs = stm.executeQuery(SQL);
+                while(rs.next()) {
+                    String loginn = rs.getString("login");
+                    String senhaa = rs.getString("senha");
+                    String nomee = rs.getString("nome");
+                    String matriculaa = rs.getString("matricula"); //ctx
+                    String emaill = rs.getString("email");
+                    String perfill = rs.getString("perfil");
+                    if(jTextField1.getText().equals(loginn) && jPasswordField1.getText().equals(senhaa)){
+                        JOptionPane.showMessageDialog(null,"Seja bem vindo: " + nomee,"Oi. Simples assim!",JOptionPane.INFORMATION_MESSAGE);
+                        jLabel2.setText(nomee);
+                        jLabel5.setText(matriculaa); //ctx
+                        jLabel6.setText(emaill);
+                        jLabel11.setText(perfill); //administrador ou usuário
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Login ou Senha inválidos.","Oi. Simples assim!",JOptionPane.ERROR_MESSAGE);
+                        jPasswordField1.setText("");
+                    }
+                }
+            }catch(SQLException e){
+                e.printStackTrace(); //vejamos que erro foi gerado e quem o gerou
+                JOptionPane.showMessageDialog(null,"Erro na conexão, com o banco de dados!","Oi. Simples assim!",JOptionPane.WARNING_MESSAGE);
+            }catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }finally {
+                try{
+                    con.close();
+                }catch(SQLException onConClose){
+                    //System.out.println("Houve erro no fechamento da conexão");
+                    JOptionPane.showMessageDialog(null,"Erro na conexão, com o banco de dados!","Oi. Simples assim!",JOptionPane.WARNING_MESSAGE);
+                    onConClose.printStackTrace();
+                }
+            } // fim do bloco try-catch-finally
+        }//else do login e senha vazios
+        jTextField1.setText("");
+        jPasswordField1.setText("");
